@@ -1,6 +1,6 @@
 # 2048
 
 
-demo : 
+demo : cocodo.cc
 
 ![](https://github.com/johenrre/2048/blob/master/2048demo.gif)  

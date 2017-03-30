@@ -1,7 +1,7 @@
 # 2048
 
 
-demo : http://cocodo.cc/
+demo : http://cocodo.cc/item/2048/
 
 ![](https://github.com/johenrre/2048/blob/master/2048demo.gif)  
 

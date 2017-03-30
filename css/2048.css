@@ -243,3 +243,19 @@ feature span{
         -webkit-transform: scale(1);
     }
 }
+/* 合并的元素添加缩小效果 */
+.merge-one {
+    animation: suo 0.5s;
+    -webkit-animation: suo 0.5s;
+}
+
+@keyframes suo {
+    from {
+        transform: scale(2);
+        -webkit-transform: scale(2);
+    }
+    to {
+        transform: scale(1);
+        -webkit-transform: scale(1);
+    }
+}

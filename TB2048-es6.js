@@ -1,31 +1,32 @@
 // 1实现悔棋 2结合的元素增加动画  3 分数 4 新游戏 5判断是不是赢了
-var TB2048 = function (){
-    this.level = 6
-    this.map = []
-    this.animation = 0
-    this.data = []
-    this.Scorenow = 0
-    this.Scorebest = 0
-    this.first = ''
-    this.win = 0
+class TB2048{
+    constructor(){
+       this.level = 6
+       this.map = []
+       this.animation = 0
+       this.data = []
+       this.Scorenow = 0
+       this.Scorebest = 0
+       this.first = ''
+       this.win = 0
+     }
 
-
-    TB2048.prototype.initmap = function () {
+    initmap() {
       //初始化map
-      var s = this.level * this.level
+      let s = this.level * this.level
       this.map = []
       for (var i = 0; i < s; i++) {
         this.map.push(0)
       }
     }
-    TB2048.prototype.drawMap = function (value) {
-      var tbody = e('.tbody')
+    drawMap(value) {
+      let tbody = e('.tbody')
       tbody.innerHTML = ''
-      var length = value * value
-      var size = Math.floor((100 / value) * 100) / 100
-      var fontsize = Math.floor((4 / value) * 100) / 100
+      let length = value * value
+      let size = Math.floor((100 / value) * 100) / 100
+      let fontsize = Math.floor((4 / value) * 100) / 100
       for (var i = 0; i < length; i++) {
-          var t = `
+          let t = `
             <div class="square" style='width:${size}%; height:${size}%; font-size:${fontsize}em;'>
               <span class=""></span>
             </div>
@@ -33,7 +34,7 @@ var TB2048 = function (){
           appendHtml(tbody, t)
       }
     }
-    TB2048.prototype.init = function (data) {
+    init(data) {
       this.map = data.map
       this.Scorenow = data.Scorenow
       this.Scorebest= data.Scorebest
@@ -50,7 +51,7 @@ var TB2048 = function (){
       this.data.push(this.map)
         // log(this.map)
     }
-    TB2048.prototype.newGame = function () {
+    newGame() {
       this.initmap()
       this.Scorenow = 0
       this.data = []
@@ -58,11 +59,11 @@ var TB2048 = function (){
       this.append1value()
       this.showMap()
     }
-    TB2048.prototype.showMap = function() {
+    showMap() {
         // 吧value显示出来
-        var value = this.map
-        var square = es('.square span')
-        for (var i = 0; i < square.length; i++) {
+        let value = this.map
+        let square = es('.square span')
+        for (let i = 0; i < square.length; i++) {
           this.deleteclass(square[i])
           if (value[i] != 0) {
               square[i].innerHTML = value[i]
@@ -77,9 +78,9 @@ var TB2048 = function (){
           playAnimation(square[this.animation], 'new-one')
         }
     }
-    TB2048.prototype.deleteclass = function(span){
-      var flag = ['value2', 'value4', 'value8', 'value16', 'value32', 'value64','value128','value256','value512','value1024','value2048','value4096']
-      for (var i = 0; i < flag.length; i++) {
+    deleteclass(span){
+      let flag = ['value2', 'value4', 'value8', 'value16', 'value32', 'value64','value128','value256','value512','value1024','value2048','value4096']
+      for (let i = 0; i < flag.length; i++) {
         if (span.classList.contains(flag[i])) {
              span.classList.remove(flag[i])
              return
@@ -87,30 +88,30 @@ var TB2048 = function (){
       }
     }
     //在页面显示一个数字
-    TB2048.prototype.append1value = function() {
+    append1value() {
         // 随机生成2或者4
-        var value = this.map
-        var index = []
-        for (var i = 0; i < value.length; i++) {
+        let value = this.map
+        let index = []
+        for (let i = 0; i < value.length; i++) {
           if (value[i] == 0) {
               index.push(i)
           }
         }
         // 随机返回数组的一个数
-        var newvalue = this.getcurren(index)
+        let newvalue = this.getcurren(index)
         //得到一个2或者4的数字
-        var nub = this.getnub()
+        let nub = this.getnub()
         this.map[newvalue] = nub
         this.animation = newvalue
         //把新的地图显示出来
         // this.showMap()
     }
-    TB2048.prototype.getcurren = function (arr) {
+    getcurren(arr) {
        let len = arr.length
        let a = arr[Math.floor(Math.random()*len)]
        return a
     }
-    TB2048.prototype.getnub = function () {
+    getnub() {
       let Rand = Math.random()
       if (Rand > 0.7) {
          return 4
@@ -119,22 +120,22 @@ var TB2048 = function (){
       }
     }
     //把数组切成4个数组
-    TB2048.prototype.transverseArray = function () {
-       var result = this.currenarr(this.map, this.level)
+    transverseArray() {
+       let result = this.currenarrArray(this.map, this.level)
        return result
     }
-    TB2048.prototype.portraitArray = function () {
-       var result = this.currenarr2(this.map, this.level)
+    portraitArray() {
+       let result = this.currenarrArray2(this.map, this.level)
        return result
     }
     // 把数组分成nub个数组
-    TB2048.prototype.currenarr = function (arr, nub) {
-       var result = []
-       var index = 0
-       var nub2 = arr.length / nub
-       for (var i = 0; i < nub; i++) {
+    currenarrArray(arr, nub) {
+       let result = []
+       let index = 0
+       let nub2 = arr.length / nub
+       for (let i = 0; i < nub; i++) {
          let line = []
-         for (var j = 0; j < nub2; j++) {
+         for (let j = 0; j < nub2; j++) {
             line.push(arr[index])
             index += 1
          }
@@ -144,13 +145,13 @@ var TB2048 = function (){
        return result
     }
     // 把数组分成nub个数组 arr.lenth必须是nub * nub
-    TB2048.prototype.currenarr2 = function (arr, nub) {
-       var result = []
+    currenarrArray2(arr, nub) {
+       let result = []
       //  var lie = 0
-       for (var i = 0; i < nub; i++) {
+       for (let i = 0; i < nub; i++) {
          let line = []
          let index = i
-         for (var j = 0; j < nub; j++) {
+         for (let j = 0; j < nub; j++) {
             line.push(arr[index])
             index += nub
          }
@@ -160,83 +161,83 @@ var TB2048 = function (){
        return result
     }
     // 把数组都的数组都解压
-    TB2048.prototype.getValue = function (arr) {
-      var result = []
-      for (var i = 0; i < arr.length; i++) {
-        for (var j = 0; j < arr.length; j++) {
+    getValue(arr) {
+      let result = []
+      for (let i = 0; i < arr.length; i++) {
+        for (let j = 0; j < arr.length; j++) {
            result.push(arr[i][j])
         }
       }
       return result
     }
-    TB2048.prototype.getValue2 = function (arr) {
-       var result = []
-       for (var i = 0; i < arr.length; i++) {
-         for (var j = 0; j < arr.length; j++) {
+    getValue2(arr) {
+       let result = []
+       for (let i = 0; i < arr.length; i++) {
+         for (let j = 0; j < arr.length; j++) {
             result.push(arr[j][i])
          }
        }
        return result
     }
     //按了左
-    TB2048.prototype.moveleft = function () {
+    moveleft() {
       //横向2维数组
-       var arr = this.transverseArray()
-       var resultarr = []
-       for (var i = 0; i < arr.length; i++) {
-         var line = this.contentval(arr[i])
+       let arr = this.transverseArray()
+       let resultarr = []
+       for (let i = 0; i < arr.length; i++) {
+         let line = this.contentval(arr[i])
          resultarr.push(line)
        }
        //把数组拍扁 更新map
        this.map = this.getValue(resultarr)
       //  log('text',this.map)
       //这里要测试一下有没有添加合并元素
-       this.textchange()
+       this.textChange()
     }
-    TB2048.prototype.moveright = function () {
-       var arr = this.transverseArray()
+    moveright() {
+       let arr = this.transverseArray()
       //  var arr = arr2.reverse()
-       var resultarr = []
-       for (var i = 0; i < arr.length; i++) {
+       let resultarr = []
+       for (let i = 0; i < arr.length; i++) {
          let bb = arr[i].reverse()
-         var line = this.contentval(bb)
+         let line = this.contentval(bb)
          resultarr.push(line.reverse())
        }
       this.map = this.getValue(resultarr)
       //这里要测试一下有没有添加合并元素
-       this.textchange()
+       this.textChange()
     }
-    TB2048.prototype.movetop = function () {
+    movetop() {
       //竖着得到一个2维数组
-       var arr = this.portraitArray()
-       var resultarr = []
-       for (var i = 0; i < arr.length; i++) {
-         var line = this.contentval(arr[i])
+       let arr = this.portraitArray()
+       let resultarr = []
+       for (let i = 0; i < arr.length; i++) {
+         let line = this.contentval(arr[i])
          resultarr.push(line)
        }
        this.map = this.getValue2(resultarr)
       //  log('resultarr = ',this.green)
       //这里要测试一下有没有添加合并元素
-       this.textchange()
+       this.textChange()
     }
-    TB2048.prototype.movedown = function () {
-      var arr = this.portraitArray()
+    movedown() {
+      let arr = this.portraitArray()
       // var arr = arr2.reverse()
-       var resultarr = []
-       for (var i = 0; i < arr.length; i++) {
+       let resultarr = []
+       for (let i = 0; i < arr.length; i++) {
          let bb = arr[i].reverse()
-         var line = this.contentval(bb)
+         let line = this.contentval(bb)
          resultarr.push(line.reverse())
        }
       //初始化green
       this.map = this.getValue2(resultarr)
       //  log('text',this.map)
       //这里要测试一下有没有添加合并元素
-       this.textchange()
+       this.textChange()
     }
-    TB2048.prototype.textchange = function () {
+    textChange() {
       // 判断2个数组是否相等
-        var flag = this.judge()
+        let flag = this.judge()
         // log(flag)
         if (flag) {
            this.showMap()
@@ -248,10 +249,10 @@ var TB2048 = function (){
         }
     }
     // 判断map 和 data[this.data.length - 1] 是否相等
-    TB2048.prototype.judge = function () {
+    judge() {
       // 判断2个数组是否相等
-        var a = JSON.stringify(this.data[this.data.length - 1])
-        var b = JSON.stringify(this.map)
+        let a = JSON.stringify(this.data[this.data.length - 1])
+        let b = JSON.stringify(this.map)
         // log('text', a, b)
         if (a == b) {
           return true
@@ -260,11 +261,11 @@ var TB2048 = function (){
         }
     }
     //吧一个数组相同的结合
-    TB2048.prototype.contentval = function (arr) {
-        var result = []
+    contentval(arr) {
+        let result = []
         //开关
-        var zhuant = 0
-        for (var i = 0; i < arr.length; i++) {
+        let zhuant = 0
+        for (let i = 0; i < arr.length; i++) {
             if (arr[i] != 0) {
                 if (zhuant == 0) {
                     result.push(arr[i])
@@ -285,16 +286,16 @@ var TB2048 = function (){
         //补全result
         return this.buquan(result, this.level)
     }
-    TB2048.prototype.textwin = function (n) {
+    textwin(n) {
         if (n > this.win) {
           this.win = n
         }
     }
     // 对数组进行补全
-    TB2048.prototype.buquan = function (arr, nub) {
-       var result = []
+    buquan(arr, nub) {
+       let result = []
       //  var t = nub - arr.length
-       for (var i = 0; i < nub; i++) {
+       for (let i = 0; i < nub; i++) {
          if (arr[i] == undefined ) {
            result.push(0)
          } else {
@@ -304,12 +305,12 @@ var TB2048 = function (){
        return result
     }
     //悔棋
-    TB2048.prototype.huiqi = function () {
+    huiqi() {
       // log('断电', this.data)
-      var length = this.data.length
+      let length = this.data.length
       if (length > 1) {
         this.data.pop()
-        var data = this.data[this.data.length - 1]
+        let data = this.data[this.data.length - 1]
         this.map = data
         // log('断电', data)
         this.showMap()
@@ -318,3 +319,8 @@ var TB2048 = function (){
       }
     }
 }
+// var a = function () {
+//    return b = function () {
+//
+//    }
+// }

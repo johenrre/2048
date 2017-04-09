@@ -111,19 +111,21 @@ feature span{
   position: relative;
   top: 50%;
   transform: translateY(-50%);
+  font-size: 48px;
 }
-.square-line{
+/*.line4{
   width: 100%;
   height: 25%;
-}
+}*/
+
 .square{
-  width: 25%;
+  /*width: 25%;*/
   height: 100%;
   display: inline-block;
   float: left;
   border: 1px #b9ac9f solid;
-  text-align: center;
-  font-size: 3rem;
+  /*text-align: center;*/
+  /*font-size: 3rem;*/
   font-weight: 600;
   line-height: 73px;
   user-select: none;
@@ -134,6 +136,9 @@ feature span{
   width: 100%;
   border-radius: 0.5rem;
   display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 /*footer的css*/
 .footer-win{
@@ -153,6 +158,14 @@ feature span{
 .none{
   display: none;
 }
+
+/*控制台*/
+.console-2048{
+  position: absolute;
+  top: 0px;
+  left: -100px;
+}
+
 
 /*字体的css*/
 .value2{
